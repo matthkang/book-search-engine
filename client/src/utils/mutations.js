@@ -44,7 +44,7 @@ export const LOGIN_USER = gql`
 `;
 
 export const REMOVE_BOOK = gql`
-  mutation removeSkill($bookId: ID!) {
+  mutation removeBook($bookId: ID!) {
     removeBook(bookId: $bookId) {
         _id
         username
