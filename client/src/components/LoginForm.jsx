@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
 import { loginUser } from '../utils/API';
+import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
@@ -26,13 +27,16 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await loginUser(userFormData);
+      // const response = await loginUser(userFormData);
+      const {data} = await loginUser({
+        variables: {...userFormData}
+      })
 
-      if (!response.ok) {
+      if (!data.ok) {
         throw new Error('something went wrong!');
       }
 
-      const { token, user } = await response.json();
+      const { token, user } = await data.json();
       console.log(user);
       Auth.login(token);
     } catch (err) {
